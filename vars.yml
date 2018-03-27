@@ -1,5 +1,0 @@
-container_name: teamspeak
-image_name: mbentley/teamspeak
-host_vol: /data/teamspeak
-container_vol: /data
-license_var: TS3SERVER_LICENSE

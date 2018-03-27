@@ -1,0 +1,25 @@
+---
+- hosts: test
+  remote_user: root
+  tasks:
+  - name: ensure ts3 directory exists
+    file: path=/data/teamspeak state=directory owner=503 group=503
+  - name: remove container
+    docker_container:
+      name: teamspeak
+      state: absent
+  - name: update container
+    docker_container:
+      name: teamspeak
+      image: mbentley/teamspeak
+      state: started
+      pull: true
+      volumes:
+        - "/data/teamspeak:/data"
+      ports:
+        - "9987:9987/udp"
+        - "30033:30033"
+        - "10011:10011"
+        - "41144:41144"
+      env:
+          TS3SERVER_LICENSE: accept
